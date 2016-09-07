@@ -24,7 +24,7 @@ $(function(){
             setTimeout(showBooks, 2200);
 
             $.ajax({
-                    url: "http://localhost:8888/406_warsztat3/bookshelf/api/books.php",
+                    url: "http://bookshelf.tbaranski.com/api/books.php",
                     method: "POST",
                     data: "name=" + nameValue + "&description=" + descriptionValue + "&author=" + authorValue
                 })
@@ -37,7 +37,7 @@ $(function(){
 
     var bookShelf = function () {
         $.ajax({
-                url: "http://localhost:8888/406_warsztat3/bookshelf/api/books.php",
+                url: "http://bookshelf.tbaranski.com/api/books.php",
                 method: "GET",
                 dataType: "JSON"
             })
@@ -87,11 +87,12 @@ $(function(){
                     setTimeout(showBooks, 1500);
                     var bookId = $(this).parent().data('id');
                     $.ajax({
-                            url: "http://localhost:8888/406_warsztat3/bookshelf/api/books.php",
+                            url: "http://bookshelf.tbaranski.com/api/books.php",
                             data: {
                                 deleteid: bookId
                             },
-                            method: "DELETE"
+                            method: "GET",
+                            dataType: "JSON"
                         })
                         .done(function (deleteBook) {
                             bookShelf();
@@ -106,7 +107,7 @@ $(function(){
             })
             .fail(function(xhr, status, errorThrown){
                 console.log(status);
-                console.log(errorThrown);
+                console.log(errorThrown);g
             });
     };
     booksDiv.hide();

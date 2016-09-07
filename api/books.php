@@ -12,20 +12,16 @@ if($_SERVER["REQUEST_METHOD"] === "POST"){
 }
 
 if($_SERVER["REQUEST_METHOD"] === "GET"){
+    if(isset($_GET['deleteid']) && $_GET['deleteid'] > 0){
+        $newBook = new Book();
+        $newBook->deleteFromDB($conn, $_GET['deleteid']);
+        $result = $newBook->loadFromDB($conn, $_GET['deleteid']);
+        echo(json_encode($result));
+    }else{
         $allBooks = Book::GetAllBooks($conn);
         echo(json_encode($allBooks));
-}
-
-if($_SERVER["REQUEST_METHOD"] === "DELETE"){
-    parse_str(file_get_contents("php://input"),$del_vars);
-    if(isset($del_vars['deleteid'])){
-        $newBook = new Book();
-        $newBook->deleteFromDB($conn, $del_vars['deleteid']);
-        $result = $newBook->loadFromDB($conn, $del_vars['deleteid']);
-        echo(json_encode($result));
     }
 }
-
 ?>
 
 
